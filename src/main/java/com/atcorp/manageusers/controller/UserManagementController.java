@@ -8,6 +8,7 @@ import com.atcorp.manageusers.service.UserManagementService;
 import com.atcorp.manageusers.utils.enums.FailureEnum;
 import com.atcorp.manageusers.utils.exception.AuthenticationFailureException;
 import com.atcorp.manageusers.utils.exception.UserAlreadyExistsException;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +24,7 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/users")
 @Slf4j
+@Tag(name = "User Management", description = "Operations related to user accounts")
 public class UserManagementController {
     @Autowired
     UserManagementService userManagementService;
