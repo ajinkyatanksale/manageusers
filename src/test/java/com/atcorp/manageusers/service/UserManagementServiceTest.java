@@ -1,4 +1,4 @@
-package service;
+package com.atcorp.manageusers.service;
 
 import com.atcorp.manageusers.dao.UserManagementDao;
 import com.atcorp.manageusers.entity.UserEntity;

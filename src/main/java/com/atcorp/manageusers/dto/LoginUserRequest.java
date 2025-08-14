@@ -13,9 +13,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class LoginUserRequest {
     @NotNull
-    @Size(min=5, max=20, message = "The length of username must be between 5 and 20 characters.")
+    @Size(min=5, max=40, message = "The length of username must be between 5 and 40 characters.")
     private String username;
     @NotNull
-    @Size(min=1, max=15, message = "The length of password must be between 8 and 15 characters.")
+    @Size(min=8, max=15, message = "The length of password must be between 8 and 15 characters.")
     private String password;
 }
