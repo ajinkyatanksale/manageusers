@@ -18,7 +18,7 @@ public class UserAuthManager implements UserDetailsService {
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity userEntity = userManagementDao.findByUserName(username);
         if (userEntity != null) {
-            return new User(userEntity.getUserName(), userEntity.getPassword(),
+            return new User(userEntity.getUserName(), userEntity.getPassword(), userEntity.getName(),
                     userEntity.getDob().toString(), userEntity.getGender(),
                     userEntity.getPhoneNumber());
         } else {

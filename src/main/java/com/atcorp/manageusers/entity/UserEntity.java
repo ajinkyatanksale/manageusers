@@ -22,6 +22,8 @@ public class UserEntity {
     private String userName;
     @Column(name="password")
     private String password;
+    @Column(name="name")
+    private String name;
     @Column(name="dob")
     private Timestamp dob;
     @Column(name="gender")
@@ -37,13 +39,36 @@ public class UserEntity {
         this.gender = userEntityBuilder.gender;
     }
 
-    public static class UserEntityBuilder {
+    public static final class UserEntityBuilder {
+        private long userId;
         private String userName;
         private String password;
+        private String name;
         private Timestamp dob;
         private String gender;
         private String phoneNumber;
 
+        public UserEntityBuilder() {
+        }
+
+        public UserEntityBuilder(UserEntity other) {
+            this.userId = other.userId;
+            this.userName = other.userName;
+            this.password = other.password;
+            this.name = other.name;
+            this.dob = other.dob;
+            this.gender = other.gender;
+            this.phoneNumber = other.phoneNumber;
+        }
+
+        public static UserEntityBuilder anUserEntity() {
+            return new UserEntityBuilder();
+        }
+
+        public UserEntityBuilder setUserId(long userId) {
+            this.userId = userId;
+            return this;
+        }
 
         public UserEntityBuilder setUserName(String userName) {
             this.userName = userName;
@@ -52,6 +77,11 @@ public class UserEntity {
 
         public UserEntityBuilder setPassword(String password) {
             this.password = password;
+            return this;
+        }
+
+        public UserEntityBuilder setName(String name) {
+            this.name = name;
             return this;
         }
 
@@ -71,7 +101,15 @@ public class UserEntity {
         }
 
         public UserEntity build() {
-            return new UserEntity(this);
+            UserEntity userEntity = new UserEntity();
+            userEntity.setUserId(userId);
+            userEntity.setUserName(userName);
+            userEntity.setPassword(password);
+            userEntity.setName(name);
+            userEntity.setDob(dob);
+            userEntity.setGender(gender);
+            userEntity.setPhoneNumber(phoneNumber);
+            return userEntity;
         }
     }
 }

@@ -20,6 +20,9 @@ public class EnrollUserRequest {
     @Size(min=8, max=15, message = "The length of password must be between 8 and 15 characters.")
     private String password;
     @NotNull
+    @Size(min=5, max=40, message = "The length of name must be between 5 and 40 characters.")
+    private String name;
+    @NotNull
     @Size(min=10, max=10)
     private String dob;
     @NotNull

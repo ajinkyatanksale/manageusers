@@ -19,6 +19,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Optional;
 
 @Component
 public class UserManagementServiceImpl implements UserManagementService {
@@ -75,10 +76,28 @@ public class UserManagementServiceImpl implements UserManagementService {
     public User getUserByUsername(String username) throws UsernameNotFoundException{
         UserEntity userEntity = userManagementDao.findByUserName(username);
         if (Objects.nonNull(userEntity)) {
-            return new User.UserBuilder().setUserName(userEntity.getUserName())
+            return new User.UserBuilder()
+                    .setUserName(userEntity.getUserName())
+                    .setName(userEntity.getName())
                     .setPhoneNumber(userEntity.getPhoneNumber())
                     .setGender(userEntity.getGender())
                     .setDob(userEntity.getDob().toString()).build();
+        } else {
+            throw new UsernameNotFoundException("User does not exists");
+        }
+    }
+
+    @Override
+    public User getUserByUserId(long userId) throws UsernameNotFoundException{
+        Optional<UserEntity> userEntity = userManagementDao.findById(userId);
+        if (userEntity.isPresent()) {
+            UserEntity user = userEntity.get();
+            return new User.UserBuilder()
+                    .setUserName(user.getUserName())
+                    .setName(user.getName())
+                    .setPhoneNumber(user.getPhoneNumber())
+                    .setGender(user.getGender())
+                    .setDob(user.getDob().toString()).build();
         } else {
             throw new UsernameNotFoundException("User does not exists");
         }

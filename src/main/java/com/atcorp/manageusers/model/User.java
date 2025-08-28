@@ -20,6 +20,7 @@ public class User implements UserDetails {
 
     private String username;
     private String password;
+    private String name;
     private String dob;
     private String gender;
     private String phoneNumber;
@@ -42,6 +43,7 @@ public class User implements UserDetails {
     private User (UserBuilder userBuilder) {
         this.username = userBuilder.username;
         this.password = userBuilder.password;
+        this.name = userBuilder.name;
         this.dob = userBuilder.dob;
         this.phoneNumber = userBuilder.phoneNumber;
         this.gender = userBuilder.gender;
@@ -50,6 +52,7 @@ public class User implements UserDetails {
     public static class UserBuilder {
         private String username;
         private String password;
+        private String name;
         private String dob;
         private String gender;
         private String phoneNumber;
@@ -61,6 +64,11 @@ public class User implements UserDetails {
 
         public UserBuilder setPassword(String password) {
             this.password = password;
+            return this;
+        }
+
+        public UserBuilder setName(String name) {
+            this.name = name;
             return this;
         }
 

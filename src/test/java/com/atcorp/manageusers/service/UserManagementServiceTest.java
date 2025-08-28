@@ -49,7 +49,7 @@ public class UserManagementServiceTest {
 
     @Test
     public void testEnrollmentSuccessful () throws ParseException {
-        User user = new User("tanksale.ajnkya@gmail.com", "Ajinkya@1012", "10/12/1998", "Male", "9762289985");
+        User user = new User("tanksale.ajnkya@gmail.com", "Ajinkya@1012", "Ajinkya Tanksale", "10/12/1998", "Male", "9762289985");
 
         String formatPattern = "dd/MM/yyyy HH:mm:ss";
         SimpleDateFormat dateFormat = new SimpleDateFormat(formatPattern);
@@ -75,7 +75,7 @@ public class UserManagementServiceTest {
 
     @Test
     public void testEnrollmentFailure1 () throws ParseException {
-        User user = new User("tanksale.ajnkya@gmail.com", "Ajinkya@1012", "10/12/1998", "Male", "9762289985");
+        User user = new User("tanksale.ajnkya@gmail.com", "Ajinkya@1012", "Ajinkya Tanksale", "10/12/1998", "Male", "9762289985");
 
         String formatPattern = "dd/MM/yyyy HH:mm:ss";
         SimpleDateFormat dateFormat = new SimpleDateFormat(formatPattern);
@@ -96,7 +96,7 @@ public class UserManagementServiceTest {
 
     @Test
     public void testEnrollmentFailure2 () {
-        User user = new User("tanksale.ajnkya@gmail.com", "Ajinkya@1012", "10-12-1998", "Male", "9762289985");
+        User user = new User("tanksale.ajnkya@gmail.com", "Ajinkya@1012", "Ajinkya Tanksale", "10-12-1998", "Male", "9762289985");
 
         when(userManagementDao.findByUserName(any(String.class))).thenReturn(null);
 
@@ -107,7 +107,7 @@ public class UserManagementServiceTest {
 
     @Test
     public void testLoginSuccessful () throws ParseException {
-        User user = new User("tanksale.ajnkya@gmail.com", "Ajinkya@1012", "10/12/1998", "Male", "9762289985");
+        User user = new User("tanksale.ajnkya@gmail.com", "Ajinkya@1012", "Ajinkya Tanksale", "10/12/1998", "Male", "9762289985");
         String formatPattern = "dd/MM/yyyy HH:mm:ss";
         SimpleDateFormat dateFormat = new SimpleDateFormat(formatPattern);
         Date parsedDate = dateFormat.parse(user.getDob() + " 00:00:00");
@@ -136,7 +136,7 @@ public class UserManagementServiceTest {
 
     @Test
     public void testLoginFailureUsernameNotFound () {
-        User user = new User("tanksale.ajnkya@gmail.com", "Ajinkya@1012", "10/12/1998", "Male", "9762289985");
+        User user = new User("tanksale.ajnkya@gmail.com", "Ajinkya@1012", "Ajinkya Tanksale", "10/12/1998", "Male", "9762289985");
 
         when(userManagementDao.findByUserName(any(String.class))).thenReturn(null);
 
@@ -147,7 +147,7 @@ public class UserManagementServiceTest {
 
     @Test
     public void testLoginFailureAuthenticationFailure () throws ParseException {
-        User user = new User("tanksale.ajnkya@gmail.com", "Ajinkya@1012", "10/12/1998", "Male", "9762289985");
+        User user = new User("tanksale.ajnkya@gmail.com", "Ajinkya@1012", "Ajinkya Tanksale" , "10/12/1998", "Male", "9762289985");
         String formatPattern = "dd/MM/yyyy HH:mm:ss";
         SimpleDateFormat dateFormat = new SimpleDateFormat(formatPattern);
         Date parsedDate = dateFormat.parse(user.getDob() + " 00:00:00");

@@ -17,7 +17,7 @@ public class JwtHelperTests {
 
     @Test
     public void testGenerateJwtSuccess () {
-        User user = new User("tanksale.ajnkya@gmail.com", "Ajinkya@1012", "10/12/1998", "Male", "9762289985");
+        User user = new User("tanksale.ajnkya@gmail.com", "Ajinkya@1012", "Ajinkya Tanksale", "10/12/1998", "Male", "9762289985");
 
         String result = jwtHelper.generateToken(user);
 

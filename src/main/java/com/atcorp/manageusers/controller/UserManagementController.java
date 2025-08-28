@@ -35,6 +35,7 @@ public class UserManagementController {
 
         String res = userManagementService.createCustomer(new User.UserBuilder()
                 .setUserName(enrollUserRequest.getUsername())
+                .setName(enrollUserRequest.getName())
                 .setPassword(enrollUserRequest.getPassword())
                 .setDob(enrollUserRequest.getDob())
                 .setGender(enrollUserRequest.getGender())
@@ -77,6 +78,27 @@ public class UserManagementController {
         if (Objects.nonNull(user)) {
             FindUserByUsernameSuccessReponse findUserByUsernameSuccessReponse = new FindUserByUsernameSuccessReponse();
             findUserByUsernameSuccessReponse.setUsername(user.getUsername());
+            findUserByUsernameSuccessReponse.setName(user.getName());
+            findUserByUsernameSuccessReponse.setDob(user.getDob());
+            findUserByUsernameSuccessReponse.setGender(user.getGender());
+            findUserByUsernameSuccessReponse.setPhoneNumber(user.getPhoneNumber());
+            response.setSuccessResponse(findUserByUsernameSuccessReponse);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } else {
+            FailureResponse failureResponse = new FailureResponse("User does not enrolled with the system", FailureEnum.USER_NOT_FOUND);
+            response.setFailureResponse(failureResponse);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/find/{userId}")
+    public ResponseEntity<Response> getUserByUserId(@Valid @PathVariable @NotNull long userId) {
+        User user = userManagementService.getUserByUserId(userId);
+        Response response = new Response();
+        if (Objects.nonNull(user)) {
+            FindUserByUsernameSuccessReponse findUserByUsernameSuccessReponse = new FindUserByUsernameSuccessReponse();
+            findUserByUsernameSuccessReponse.setUsername(user.getUsername());
+            findUserByUsernameSuccessReponse.setName(user.getName());
             findUserByUsernameSuccessReponse.setDob(user.getDob());
             findUserByUsernameSuccessReponse.setGender(user.getGender());
             findUserByUsernameSuccessReponse.setPhoneNumber(user.getPhoneNumber());

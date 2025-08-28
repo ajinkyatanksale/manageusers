@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 public class FindUserByUsernameSuccessReponse implements SuccessResponse {
     private String username;
+    private String name;
     private String dob;
     private String gender;
     private String phoneNumber;
