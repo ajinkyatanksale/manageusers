@@ -34,7 +34,7 @@ public class UserManagementController {
         Response response = new Response();
 
         String res = userManagementService.createCustomer(new User.UserBuilder()
-                .setUserName(enrollUserRequest.getUsername())
+                .setUsername(enrollUserRequest.getUsername())
                 .setName(enrollUserRequest.getName())
                 .setPassword(enrollUserRequest.getPassword())
                 .setDob(enrollUserRequest.getDob())
@@ -55,7 +55,7 @@ public class UserManagementController {
 
     @PostMapping("/login")
     public ResponseEntity<Response> loginCustomer(@Valid @RequestBody LoginUserRequest loginUserRequest) throws AuthenticationFailureException {
-        User user = new User.UserBuilder().setUserName(loginUserRequest.getUsername()).setPassword(loginUserRequest.getPassword()).build();
+        User user = new User.UserBuilder().setUsername(loginUserRequest.getUsername()).setPassword(loginUserRequest.getPassword()).build();
         Response response = new Response();
         String jwtToken = userManagementService.loginCustomer(user);
         if (StringUtils.isNoneBlank(jwtToken)) {
@@ -63,12 +63,11 @@ public class UserManagementController {
             loginSuccessResponse.setSuccessMessage("User Logged in Successfully");
             loginSuccessResponse.setJwtToken(jwtToken);
             response.setSuccessResponse(loginSuccessResponse);
-            return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
             FailureResponse failureResponse = new FailureResponse("User is not registered in the system", FailureEnum.USER_NOT_FOUND);
             response.setFailureResponse(failureResponse);
-            return new ResponseEntity<>(response, HttpStatus.OK);
         }
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/find")
@@ -83,31 +82,10 @@ public class UserManagementController {
             findUserByUsernameSuccessReponse.setGender(user.getGender());
             findUserByUsernameSuccessReponse.setPhoneNumber(user.getPhoneNumber());
             response.setSuccessResponse(findUserByUsernameSuccessReponse);
-            return new ResponseEntity<>(response, HttpStatus.OK);
         } else {
             FailureResponse failureResponse = new FailureResponse("User does not enrolled with the system", FailureEnum.USER_NOT_FOUND);
             response.setFailureResponse(failureResponse);
-            return new ResponseEntity<>(response, HttpStatus.OK);
         }
-    }
-
-    @GetMapping("/find/{userId}")
-    public ResponseEntity<Response> getUserByUserId(@Valid @PathVariable @NotNull long userId) {
-        User user = userManagementService.getUserByUserId(userId);
-        Response response = new Response();
-        if (Objects.nonNull(user)) {
-            FindUserByUsernameSuccessReponse findUserByUsernameSuccessReponse = new FindUserByUsernameSuccessReponse();
-            findUserByUsernameSuccessReponse.setUsername(user.getUsername());
-            findUserByUsernameSuccessReponse.setName(user.getName());
-            findUserByUsernameSuccessReponse.setDob(user.getDob());
-            findUserByUsernameSuccessReponse.setGender(user.getGender());
-            findUserByUsernameSuccessReponse.setPhoneNumber(user.getPhoneNumber());
-            response.setSuccessResponse(findUserByUsernameSuccessReponse);
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        } else {
-            FailureResponse failureResponse = new FailureResponse("User does not enrolled with the system", FailureEnum.USER_NOT_FOUND);
-            response.setFailureResponse(failureResponse);
-            return new ResponseEntity<>(response, HttpStatus.OK);
-        }
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

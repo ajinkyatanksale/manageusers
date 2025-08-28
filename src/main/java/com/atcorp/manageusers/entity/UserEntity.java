@@ -30,6 +30,8 @@ public class UserEntity {
     private String gender;
     @Column(name="phone_number")
     private String phoneNumber;
+    @Column(name="role")
+    private String role;
 
     private UserEntity (UserEntityBuilder userEntityBuilder) {
         this.userName = userEntityBuilder.userName;
@@ -47,6 +49,7 @@ public class UserEntity {
         private Timestamp dob;
         private String gender;
         private String phoneNumber;
+        private String role;
 
         public UserEntityBuilder() {
         }
@@ -59,6 +62,7 @@ public class UserEntity {
             this.dob = other.dob;
             this.gender = other.gender;
             this.phoneNumber = other.phoneNumber;
+            this.role = other.role;
         }
 
         public static UserEntityBuilder anUserEntity() {
@@ -100,6 +104,11 @@ public class UserEntity {
             return this;
         }
 
+        public UserEntityBuilder setRole(String role) {
+            this.role = role;
+            return this;
+        }
+
         public UserEntity build() {
             UserEntity userEntity = new UserEntity();
             userEntity.setUserId(userId);
@@ -109,6 +118,7 @@ public class UserEntity {
             userEntity.setDob(dob);
             userEntity.setGender(gender);
             userEntity.setPhoneNumber(phoneNumber);
+            userEntity.setRole(role);
             return userEntity;
         }
     }

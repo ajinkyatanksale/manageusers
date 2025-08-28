@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Component;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
@@ -59,14 +61,14 @@ public class UserManagementServiceImpl implements UserManagementService {
 
     @Override
     public String loginCustomer(User user) throws UsernameNotFoundException {
-        getUserByUsername(user.getUsername());
+        User user1 = getUserByUsername(user.getUsername());
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         user.getUsername(),
                         user.getPassword()));
 
         if (authentication.isAuthenticated()) {
-            return jwtHelper.generateToken(user);
+            return jwtHelper.generateToken(user1);
         } else {
             throw new AuthenticationFailureException("Authentication failed");
         }
@@ -77,11 +79,14 @@ public class UserManagementServiceImpl implements UserManagementService {
         UserEntity userEntity = userManagementDao.findByUserName(username);
         if (Objects.nonNull(userEntity)) {
             return new User.UserBuilder()
-                    .setUserName(userEntity.getUserName())
+                    .setUserId(userEntity.getUserId())
+                    .setUsername(userEntity.getUserName())
                     .setName(userEntity.getName())
                     .setPhoneNumber(userEntity.getPhoneNumber())
                     .setGender(userEntity.getGender())
-                    .setDob(userEntity.getDob().toString()).build();
+                    .setDob(userEntity.getDob().toString())
+                    .setAuthorities(Collections.singleton(new SimpleGrantedAuthority(userEntity.getRole())))
+                    .build();
         } else {
             throw new UsernameNotFoundException("User does not exists");
         }
@@ -93,7 +98,7 @@ public class UserManagementServiceImpl implements UserManagementService {
         if (userEntity.isPresent()) {
             UserEntity user = userEntity.get();
             return new User.UserBuilder()
-                    .setUserName(user.getUserName())
+                    .setUsername(user.getUserName())
                     .setName(user.getName())
                     .setPhoneNumber(user.getPhoneNumber())
                     .setGender(user.getGender())

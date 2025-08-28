@@ -18,16 +18,24 @@ import java.util.Collections;
 @NoArgsConstructor
 public class User implements UserDetails {
 
+    private long userId;
     private String username;
     private String password;
     private String name;
     private String dob;
     private String gender;
     private String phoneNumber;
+    @Setter
+    private Collection<? extends GrantedAuthority> authorities;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("USER"));
+        return authorities;
+    }
+
+    public User (String username, Collection<? extends GrantedAuthority> authorities) {
+        this.username = username;
+        this.authorities = authorities;
     }
 
     @Override
@@ -49,15 +57,40 @@ public class User implements UserDetails {
         this.gender = userBuilder.gender;
     }
 
-    public static class UserBuilder {
+    public static final class UserBuilder {
+        private long userId;
         private String username;
         private String password;
         private String name;
         private String dob;
         private String gender;
         private String phoneNumber;
+        private Collection<? extends GrantedAuthority> authorities;
 
-        public UserBuilder setUserName(String username) {
+        public UserBuilder() {
+        }
+
+        public UserBuilder(User other) {
+            this.userId = other.userId;
+            this.username = other.username;
+            this.password = other.password;
+            this.name = other.name;
+            this.dob = other.dob;
+            this.gender = other.gender;
+            this.phoneNumber = other.phoneNumber;
+            this.authorities = other.authorities;
+        }
+
+        public static UserBuilder anUser() {
+            return new UserBuilder();
+        }
+
+        public UserBuilder setUserId(long userId) {
+            this.userId = userId;
+            return this;
+        }
+
+        public UserBuilder setUsername(String username) {
             this.username = username;
             return this;
         }
@@ -87,9 +120,22 @@ public class User implements UserDetails {
             return this;
         }
 
+        public UserBuilder setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+            this.authorities = authorities;
+            return this;
+        }
+
         public User build() {
-            return new User(this);
+            User user = new User();
+            user.setUserId(userId);
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setName(name);
+            user.setDob(dob);
+            user.setGender(gender);
+            user.setPhoneNumber(phoneNumber);
+            user.setAuthorities(authorities);
+            return user;
         }
     }
-
 }
