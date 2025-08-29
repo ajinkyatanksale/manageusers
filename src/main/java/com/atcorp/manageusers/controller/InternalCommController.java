@@ -1,6 +1,6 @@
 package com.atcorp.manageusers.controller;
 
-import com.atcorp.manageusers.dto.FindUserByUsernameSuccessReponse;
+import com.atcorp.manageusers.dto.FindUserByUsernameSuccessResponse;
 import com.atcorp.manageusers.dto.base.FailureResponse;
 import com.atcorp.manageusers.dto.base.Response;
 import com.atcorp.manageusers.model.User;
@@ -36,13 +36,13 @@ public class InternalCommController {
         User user = userManagementService.getUserByUserId(userId);
         Response response = new Response();
         if (Objects.nonNull(user)) {
-            FindUserByUsernameSuccessReponse findUserByUsernameSuccessReponse = new FindUserByUsernameSuccessReponse();
-            findUserByUsernameSuccessReponse.setUsername(user.getUsername());
-            findUserByUsernameSuccessReponse.setName(user.getName());
-            findUserByUsernameSuccessReponse.setDob(user.getDob());
-            findUserByUsernameSuccessReponse.setGender(user.getGender());
-            findUserByUsernameSuccessReponse.setPhoneNumber(user.getPhoneNumber());
-            response.setSuccessResponse(findUserByUsernameSuccessReponse);
+            FindUserByUsernameSuccessResponse findUserByUsernameSuccessResponse = new FindUserByUsernameSuccessResponse();
+            findUserByUsernameSuccessResponse.setUsername(user.getUsername());
+            findUserByUsernameSuccessResponse.setName(user.getName());
+            findUserByUsernameSuccessResponse.setDob(user.getDob());
+            findUserByUsernameSuccessResponse.setGender(user.getGender());
+            findUserByUsernameSuccessResponse.setPhoneNumber(user.getPhoneNumber());
+            response.setSuccessResponse(findUserByUsernameSuccessResponse);
         } else {
             FailureResponse failureResponse = new FailureResponse("User does not enrolled with the system", FailureEnum.USER_NOT_FOUND);
             response.setFailureResponse(failureResponse);

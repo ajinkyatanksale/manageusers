@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class FindUserByUsernameSuccessReponse implements SuccessResponse {
+public class FindUserByUsernameSuccessResponse implements SuccessResponse {
     private String username;
     private String name;
     private String dob;
