@@ -50,6 +50,7 @@ class UserManagementControllerTest {
                         .content("""
                                 {
                                     "username": "tanksale.ajinkya3@gmail.com",
+                                    "name": "Ajinkya Tanksale",
                                     "password": "Ajinkya@1012",
                                     "dob": "10/12/1998",
                                     "gender": "Male",
@@ -68,6 +69,7 @@ class UserManagementControllerTest {
                 .content("""
                                 {
                                     "username": "tanksale.ajinkya3@gmail.com",
+                                    "name": "Ajinkya Tanksale",
                                     "password": "Ajinkya@1012",
                                     "dob": "10/12/19988989",
                                     "gender": "Male",
@@ -86,6 +88,7 @@ class UserManagementControllerTest {
                 .content("""
                                 {
                                     "username": "tanksale.ajinkya3@gmail.com",
+                                    "name": "Ajinkya Tanksale",
                                     "password": "Ajinkya@1012",
                                     "dob": "10/12/1998",
                                     "gender": "Male",

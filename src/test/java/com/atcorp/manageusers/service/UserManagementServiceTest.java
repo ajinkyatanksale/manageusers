@@ -115,9 +115,11 @@ public class UserManagementServiceTest {
         Timestamp timestamp = new Timestamp(parsedDate.getTime());
         UserEntity existingUser = new UserEntity.UserEntityBuilder().setUserName("tanksale.ajnkya@gmail.com")
                 .setPassword("Ajinkya@1012")
+                .setName("Ajinkya Tanksale")
                 .setDob(timestamp)
                 .setGender("Male")
-                .setPhoneNumber("9762289985").build();
+                .setPhoneNumber("9762289985")
+                .setRole("ROLE_USER").build();
 
         UsernamePasswordAuthenticationToken authToken =
                 new UsernamePasswordAuthenticationToken(
@@ -126,7 +128,7 @@ public class UserManagementServiceTest {
                         List.of(new SimpleGrantedAuthority("USER")) // authorities
                 );
 
-        when(jwtHelper.generateToken(user)).thenReturn("jwtToken");
+        when(jwtHelper.generateToken(any(User.class))).thenReturn("jwtToken");
         when(userManagementDao.findByUserName(any(String.class))).thenReturn(existingUser);
         when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class))).thenReturn(authToken);
 
@@ -155,9 +157,11 @@ public class UserManagementServiceTest {
         Timestamp timestamp = new Timestamp(parsedDate.getTime());
         UserEntity existingUser = new UserEntity.UserEntityBuilder().setUserName("tanksale.ajnkya@gmail.com")
                 .setPassword("Ajinkya@1012")
+                .setName("Ajinkya Tanksale")
                 .setDob(timestamp)
                 .setGender("Male")
-                .setPhoneNumber("9762289985").build();
+                .setPhoneNumber("9762289985")
+                .setRole("ROLE_USER").build();
 
         when(userManagementDao.findByUserName(any(String.class))).thenReturn(existingUser);
         when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class))).thenReturn(new UsernamePasswordAuthenticationToken(user, null));

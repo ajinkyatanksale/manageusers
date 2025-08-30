@@ -3,7 +3,7 @@ FROM tomcat:10.1-jdk17
 
 RUN rm -rf /usr/local/tomcat/webapps/*
 
-COPY target/manageusers.war /usr/local/tomcat/webapps/manageusers.war
+COPY target/manageusers.war /usr/local/tomcat/webapps/ROOT.war
 
 EXPOSE 8080
 
